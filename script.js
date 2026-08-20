@@ -282,77 +282,7 @@ buttons.forEach((button) => {
 
 
 /* =========================================================
-   7. CONTACT FORM
-========================================================= */
-
-const contactForm =
-    document.querySelector("#contact-form");
-
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-        const name =
-            document.querySelector("#name");
-
-        const email =
-            document.querySelector("#email");
-
-        const message =
-            document.querySelector("#message");
-
-        const formMessage =
-            document.querySelector("#form-message");
-
-
-        if (!name || !email || !message) {
-            return;
-        }
-
-
-        if (
-            name.value.trim() === "" ||
-            email.value.trim() === "" ||
-            message.value.trim() === ""
-        ) {
-
-            if (formMessage) {
-
-                formMessage.textContent =
-                    "Please complete all fields.";
-
-                formMessage.className =
-                    "form-message error";
-
-            }
-
-            return;
-        }
-
-
-        if (formMessage) {
-
-            formMessage.textContent =
-                "Thank you! Your message has been received.";
-
-            formMessage.className =
-                "form-message success";
-
-        }
-
-
-        contactForm.reset();
-
-    });
-
-}
-
-
-/* =========================================================
-   8. TYPING EFFECT
+   7. TYPING EFFECT
 ========================================================= */
 
 const typingElement =
@@ -447,7 +377,7 @@ if (typingElement) {
 
 
 /* =========================================================
-   9. CURSOR GLOW
+   8. CURSOR GLOW
 ========================================================= */
 
 const cursorGlow =
@@ -477,7 +407,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   10. MAGNETIC ELEMENTS
+   9. MAGNETIC ELEMENTS
 ========================================================= */
 
 const magneticElements =
@@ -528,7 +458,7 @@ magneticElements.forEach((element) => {
 
 
 /* =========================================================
-   11. CURRENT YEAR
+   10. CURRENT YEAR
 ========================================================= */
 
 const yearElement =
@@ -546,7 +476,7 @@ if (yearElement) {
 
 
 /* =========================================================
-   12. BACK TO TOP
+   11. BACK TO TOP
 ========================================================= */
 
 const backToTop =
@@ -595,7 +525,7 @@ if (backToTop) {
 
 
 /* =========================================================
-   13. ESC KEY
+   12. ESC KEY
    CLOSE ACTIVE CARDS
 ========================================================= */
 
@@ -626,7 +556,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   14. CONSOLE MESSAGE
+   13. CONSOLE MESSAGE
 ========================================================= */
 
 console.log(
