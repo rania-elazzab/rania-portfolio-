@@ -562,3 +562,53 @@ document.addEventListener(
 console.log(
     "Rania El Azzab Portfolio — JavaScript loaded successfully."
 );
+
+/* =========================================================
+   14 — HERO IMAGE 3D MOUSE INTERACTION
+========================================================= */
+
+const heroVisual = document.querySelector(".hero-visual");
+const heroImage = document.querySelector(".hero-image");
+
+if (heroVisual && heroImage) {
+
+    heroVisual.addEventListener("mousemove", (event) => {
+
+        const rect = heroVisual.getBoundingClientRect();
+
+        const x =
+            event.clientX - rect.left;
+
+        const y =
+            event.clientY - rect.top;
+
+        const centerX =
+            rect.width / 2;
+
+        const centerY =
+            rect.height / 2;
+
+        const rotateX =
+            ((y - centerY) / centerY) * -4;
+
+        const rotateY =
+            ((x - centerX) / centerX) * 5;
+
+        heroImage.style.transform =
+            `rotate(3deg)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             scale(1.025)`;
+
+    });
+
+
+    heroVisual.addEventListener("mouseleave", () => {
+
+        heroImage.style.transform =
+            "rotate(3deg) rotateX(0deg) rotateY(0deg) scale(1)";
+
+    });
+
+}
+
