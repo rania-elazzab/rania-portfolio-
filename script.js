@@ -1,614 +1,636 @@
 /* =========================================================
-   RANIA EL AZZAB — PORTFOLIO JAVASCRIPT
-========================================================= */
+   RANIA EL AZZAB — SAFE TEXT ANIMATIONS
+   JavaScript only
+   DOES NOT MODIFY index.html
+   ========================================================= */
 
+(function () {
+    "use strict";
 
-/* =========================================================
-   1. PAGE LOADED
-========================================================= */
+    /* =========================================================
+       1. ABOUT ME TYPEWRITER
+       ========================================================= */
 
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
+    const aboutText =
+        "I'm Rania El Azzab, a student exploring Web Development, English Language, and Gestion — Commerce & Marketing. I enjoy bringing creativity, business, and technology together to build meaningful digital experiences.";
 
+    function findAboutText() {
 
-/* =========================================================
-   2. NAVIGATION
-========================================================= */
+        const elements = document.querySelectorAll("p, span");
 
-const navLinks = document.querySelectorAll("nav a");
+        for (const element of elements) {
 
-navLinks.forEach((link) => {
-
-    link.addEventListener("click", () => {
-
-        navLinks.forEach((item) => {
-            item.classList.remove("active");
-        });
-
-        link.classList.add("active");
-
-    });
-
-});
-
-
-/* =========================================================
-   3. SCROLL REVEAL
-========================================================= */
-
-const revealElements = document.querySelectorAll(
-    "section, .skill-card, .project-card, .about-container, .card"
-);
-
-const revealObserver = new IntersectionObserver(
-    (entries) => {
-
-        entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
-
-        });
-
-    },
-    {
-        threshold: 0.15
-    }
-);
-
-
-revealElements.forEach((element) => {
-
-    element.classList.add("reveal");
-
-    revealObserver.observe(element);
-
-});
-
-
-/* =========================================================
-   4. SKILLS
-   HOVER + CLICK
-========================================================= */
-
-const skillCards =
-    document.querySelectorAll(".skill-card");
-
-
-skillCards.forEach((card) => {
-
-
-    /* -----------------------------------------------------
-       CLICK EFFECT
-    ----------------------------------------------------- */
-
-    card.addEventListener("click", function () {
-
-        skillCards.forEach((item) => {
-
-            if (item !== this) {
-                item.classList.remove("active");
-                item.style.transform = "";
-            }
-
-        });
-
-        this.classList.toggle("active");
-
-    });
-
-
-    /* -----------------------------------------------------
-       MOUSE MOVE
-    ----------------------------------------------------- */
-
-    card.addEventListener("mousemove", function (event) {
-
-        if (this.classList.contains("active")) {
-            return;
-        }
-
-        const rect =
-            this.getBoundingClientRect();
-
-        const mouseX =
-            event.clientX - rect.left;
-
-        const mouseY =
-            event.clientY - rect.top;
-
-        const centerX =
-            rect.width / 2;
-
-        const centerY =
-            rect.height / 2;
-
-        const rotateX =
-            ((mouseY - centerY) / centerY) * -6;
-
-        const rotateY =
-            ((mouseX - centerX) / centerX) * 6;
-
-        this.style.transform =
-            `translateY(-12px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             scale(1.025)`;
-
-    });
-
-
-    /* -----------------------------------------------------
-       MOUSE LEAVE
-    ----------------------------------------------------- */
-
-    card.addEventListener("mouseleave", function () {
-
-        if (!this.classList.contains("active")) {
-            this.style.transform = "";
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   5. PROJECTS
-   HOVER + CLICK
-========================================================= */
-
-const projectCards =
-    document.querySelectorAll(".project-card");
-
-
-projectCards.forEach((card) => {
-
-
-    /* -----------------------------------------------------
-       CLICK EFFECT
-    ----------------------------------------------------- */
-
-    card.addEventListener("click", function () {
-
-        projectCards.forEach((item) => {
-
-            if (item !== this) {
-                item.classList.remove("project-active");
-                item.style.transform = "";
-            }
-
-        });
-
-        this.classList.toggle("project-active");
-
-    });
-
-
-    /* -----------------------------------------------------
-       MOUSE MOVE
-    ----------------------------------------------------- */
-
-    card.addEventListener("mousemove", function (event) {
-
-        if (this.classList.contains("project-active")) {
-            return;
-        }
-
-        const rect =
-            this.getBoundingClientRect();
-
-        const mouseX =
-            event.clientX - rect.left;
-
-        const mouseY =
-            event.clientY - rect.top;
-
-        const centerX =
-            rect.width / 2;
-
-        const centerY =
-            rect.height / 2;
-
-        const rotateX =
-            ((mouseY - centerY) / centerY) * -5;
-
-        const rotateY =
-            ((mouseX - centerX) / centerX) * 5;
-
-        this.style.transform =
-            `translateY(-15px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             scale(1.02)`;
-
-    });
-
-
-    /* -----------------------------------------------------
-       MOUSE LEAVE
-    ----------------------------------------------------- */
-
-    card.addEventListener("mouseleave", function () {
-
-        if (!this.classList.contains("project-active")) {
-            this.style.transform = "";
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   6. RIPPLE EFFECT FOR BUTTONS
-========================================================= */
-
-const buttons =
-    document.querySelectorAll(
-        ".hero-button, .project-button"
-    );
-
-
-buttons.forEach((button) => {
-
-    button.addEventListener("click", function (event) {
-
-        const ripple =
-            document.createElement("span");
-
-        ripple.classList.add("ripple");
-
-        const rect =
-            this.getBoundingClientRect();
-
-        ripple.style.left =
-            `${event.clientX - rect.left}px`;
-
-        ripple.style.top =
-            `${event.clientY - rect.top}px`;
-
-        this.appendChild(ripple);
-
-        setTimeout(() => {
-            ripple.remove();
-        }, 700);
-
-    });
-
-});
-
-
-/* =========================================================
-   7. TYPING EFFECT
-========================================================= */
-
-const typingElement =
-    document.querySelector(".typing-text");
-
-
-if (typingElement) {
-
-    const words = [
-        "Web Developer",
-        "Commerce & Marketing Student",
-        "Digital Creator",
-        "Marketing Learner"
-    ];
-
-    let wordIndex = 0;
-    let characterIndex = 0;
-    let isDeleting = false;
-
-
-    function typeEffect() {
-
-        const currentWord =
-            words[wordIndex];
-
-
-        if (!isDeleting) {
-
-            typingElement.textContent =
-                currentWord.substring(
-                    0,
-                    characterIndex + 1
-                );
-
-            characterIndex++;
-
+            const text = element.textContent.trim();
 
             if (
-                characterIndex ===
-                currentWord.length
+                text.startsWith(
+                    "I'm Rania El Azzab, a student exploring"
+                )
             ) {
+                return element;
+            }
+        }
 
-                isDeleting = true;
+        return null;
+    }
+
+
+    function startAboutAnimation() {
+
+        const element = findAboutText();
+
+        if (!element) {
+            console.log("About Me text not found.");
+            return;
+        }
+
+        /*
+         * Do not touch elements containing other HTML.
+         */
+
+        if (element.children.length > 0) {
+            console.log(
+                "About Me contains HTML — animation skipped safely."
+            );
+            return;
+        }
+
+        /*
+         * Prevent animation from starting twice.
+         */
+
+        if (element.dataset.aboutAnimated === "true") {
+            return;
+        }
+
+        element.dataset.aboutAnimated = "true";
+
+        element.textContent = "";
+
+        let i = 0;
+
+        function writeText() {
+
+            if (i < aboutText.length) {
+
+                element.textContent += aboutText.charAt(i);
+
+                i++;
+
+                setTimeout(writeText, 28);
+
+            }
+        }
+
+        writeText();
+    }
+
+
+    /* =========================================================
+       2. SPECIALTIES
+       ========================================================= */
+
+    const specialties = [
+        "English Student",
+        "Web Development Student",
+        "Commerce & Marketing Student",
+        "Digital Creator",
+        "Business & Marketing Learner"
+    ];
+
+
+    /* =========================================================
+       3. FIND MAIN HERO TITLE
+       ========================================================= */
+
+    function findMainTitle() {
+
+        const elements = document.querySelectorAll(
+            "h1, h2, h3, h4, h5, h6"
+        );
+
+        for (const element of elements) {
+
+            const text = element.textContent.trim();
+
+            /*
+             * Find the title containing Rania.
+             */
+
+            if (
+                text.includes("Rania") ||
+                text.includes("RANIA")
+            ) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+
+    /* =========================================================
+       4. CREATE SPECIALTY TEXT
+       ========================================================= */
+
+    function createMovingText() {
+
+        /*
+         * Prevent duplicate creation.
+         */
+
+        if (
+            document.getElementById(
+                "rania-dynamic-specialty"
+            )
+        ) {
+            return;
+        }
+
+
+        const title = findMainTitle();
+
+        if (!title) {
+
+            console.log(
+                "Main hero title not found."
+            );
+
+            return;
+        }
+
+
+        /*
+         * Create the new text only with JavaScript.
+         * index.html stays untouched.
+         */
+
+        const dynamicText =
+            document.createElement("div");
+
+
+        dynamicText.id =
+            "rania-dynamic-specialty";
+
+
+        /*
+         * Safe styling.
+         * It only affects the new element.
+         */
+
+        dynamicText.style.marginTop = "12px";
+
+        dynamicText.style.minHeight = "28px";
+
+        dynamicText.style.display = "block";
+
+        dynamicText.style.textAlign =
+            "inherit";
+
+        dynamicText.style.fontSize =
+            "inherit";
+
+        dynamicText.style.fontFamily =
+            "inherit";
+
+        dynamicText.style.fontWeight =
+            "inherit";
+
+        dynamicText.style.lineHeight =
+            "1.5";
+
+        dynamicText.style.opacity =
+            "0.9";
+
+        dynamicText.style.overflow =
+            "hidden";
+
+        dynamicText.style.whiteSpace =
+            "nowrap";
+
+
+        /*
+         * Put it directly below the main title.
+         */
+
+        title.insertAdjacentElement(
+            "afterend",
+            dynamicText
+        );
+
+
+        /*
+         * Start continuous animation.
+         */
+
+        startSpecialtyAnimation(
+            dynamicText
+        );
+    }
+
+
+    /* =========================================================
+       5. CONTINUOUS TYPING / DELETING
+       ========================================================= */
+
+    function startSpecialtyAnimation(element) {
+
+        let current = 0;
+
+        let position = 0;
+
+        let deleting = false;
+
+
+        function animate() {
+
+            /*
+             * Safety check.
+             */
+
+            if (!element) {
+                return;
+            }
+
+
+            const text =
+                specialties[current];
+
+
+            /* =================================================
+               TYPING
+               ================================================= */
+
+            if (!deleting) {
+
+                element.textContent =
+                    text.substring(
+                        0,
+                        position + 1
+                    );
+
+                position++;
+
+
+                /*
+                 * Finished typing.
+                 */
+
+                if (
+                    position >=
+                    text.length
+                ) {
+
+                    setTimeout(
+                        function () {
+
+                            deleting = true;
+
+                            animate();
+
+                        },
+                        1500
+                    );
+
+                    return;
+                }
+
+
+                /*
+                 * Typing speed.
+                 */
 
                 setTimeout(
-                    typeEffect,
-                    1500
+                    animate,
+                    75
                 );
 
                 return;
             }
 
-        } else {
 
-            typingElement.textContent =
-                currentWord.substring(
+            /* =================================================
+               DELETING
+               ================================================= */
+
+            element.textContent =
+                text.substring(
                     0,
-                    characterIndex - 1
+                    position - 1
                 );
 
-            characterIndex--;
+            position--;
 
 
-            if (characterIndex === 0) {
+            /*
+             * Finished deleting.
+             */
 
-                isDeleting = false;
+            if (position <= 0) {
 
-                wordIndex++;
+                position = 0;
+
+                deleting = false;
+
+                current++;
+
+
+                /*
+                 * Start again from first specialty
+                 * after the last one.
+                 */
 
                 if (
-                    wordIndex >= words.length
+                    current >=
+                    specialties.length
                 ) {
-                    wordIndex = 0;
+                    current = 0;
                 }
 
+
+                /*
+                 * Small pause before next word.
+                 */
+
+                setTimeout(
+                    animate,
+                    300
+                );
+
+                return;
             }
 
+
+            /*
+             * Deleting speed.
+             */
+
+            setTimeout(
+                animate,
+                45
+            );
         }
 
+
+        /*
+         * Start animation.
+         */
+
+        animate();
+    }
+
+
+    /* =========================================================
+       6. START EVERYTHING
+       ========================================================= */
+
+    function startAnimations() {
+
+        /*
+         * Give the existing website / loader
+         * enough time to finish.
+         */
 
         setTimeout(
-            typeEffect,
-            isDeleting ? 55 : 95
+            function () {
+
+                /*
+                 * About Me
+                 */
+
+                startAboutAnimation();
+
+
+                /*
+                 * Dynamic specialty
+                 */
+
+                createMovingText();
+
+            },
+            1800
+        );
+    }
+
+
+    /* =========================================================
+       7. PAGE READY
+       ========================================================= */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            startAnimations
         );
 
+    } else {
+
+        startAnimations();
     }
 
-
-    typeEffect();
-
-}
+})();
 
 
-/* =========================================================
-   8. CURSOR GLOW
-========================================================= */
 
-const cursorGlow =
-    document.createElement("div");
-
-cursorGlow.classList.add(
-    "cursor-glow"
-);
-
-document.body.appendChild(
-    cursorGlow
-);
-
-
-document.addEventListener(
-    "mousemove",
-    (event) => {
-
-        cursorGlow.style.left =
-            `${event.clientX}px`;
-
-        cursorGlow.style.top =
-            `${event.clientY}px`;
-
-    }
-);
 
 
 /* =========================================================
-   9. MAGNETIC ELEMENTS
-========================================================= */
+   CONTACT FORM — FORMSUBMIT
+   Sends messages to Rania's main Gmail
+   ========================================================= */
 
-const magneticElements =
-    document.querySelectorAll(
-        ".hero-button, .project-button, .logo"
-    );
+(function () {
+    "use strict";
 
+    document.addEventListener("DOMContentLoaded", function () {
 
-magneticElements.forEach((element) => {
+        const form = document.querySelector("form");
 
-    element.addEventListener(
-        "mousemove",
-        function (event) {
-
-            const rect =
-                this.getBoundingClientRect();
-
-            const x =
-                event.clientX -
-                rect.left -
-                rect.width / 2;
-
-            const y =
-                event.clientY -
-                rect.top -
-                rect.height / 2;
-
-            this.style.transform =
-                `translate(
-                    ${x * 0.12}px,
-                    ${y * 0.12}px
-                )`;
-
+        if (!form) {
+            console.log("Contact form not found.");
+            return;
         }
-    );
 
+        /*
+         * Only use this for the contact form.
+         */
 
-    element.addEventListener(
-        "mouseleave",
-        function () {
+        const messageField =
+            form.querySelector('textarea');
 
-            this.style.transform = "";
+        const emailField =
+            form.querySelector('input[type="email"]');
 
+        const nameField =
+            form.querySelector(
+                'input[type="text"], input[name="name"]'
+            );
+
+        /*
+         * Make sure this is actually the
+         * Send a Message form.
+         */
+
+        if (!messageField || !emailField || !nameField) {
+            console.log("Contact form fields not found.");
+            return;
         }
-    );
 
-});
+        /*
+         * Give the fields names so FormSubmit
+         * can receive their values.
+         */
 
+        nameField.name = "name";
+        emailField.name = "email";
+        messageField.name = "message";
 
-/* =========================================================
-   10. CURRENT YEAR
-========================================================= */
+        /*
+         * FormSubmit destination
+         */
 
-const yearElement =
-    document.querySelector(
-        "#current-year"
-    );
+        form.action =
+            "https://formsubmit.co/raniaelazzab31@gmail.com";
 
+        form.method = "POST";
 
-if (yearElement) {
+        /*
+         * Prevent duplicate handlers.
+         */
 
-    yearElement.textContent =
-        new Date().getFullYear();
+        if (form.dataset.formsubmitReady === "true") {
+            return;
+        }
 
-}
-
-
-/* =========================================================
-   11. BACK TO TOP
-========================================================= */
-
-const backToTop =
-    document.querySelector(
-        "#back-to-top"
-    );
+        form.dataset.formsubmitReady = "true";
 
 
-if (backToTop) {
+        form.addEventListener("submit", async function (event) {
 
-    window.addEventListener(
-        "scroll",
-        () => {
+            event.preventDefault();
 
-            if (window.scrollY > 500) {
-
-                backToTop.classList.add(
-                    "visible"
+            const submitButton =
+                form.querySelector(
+                    'button[type="submit"], input[type="submit"]'
                 );
 
-            } else {
+            const originalText =
+                submitButton
+                    ? submitButton.textContent
+                    : "";
 
-                backToTop.classList.remove(
-                    "visible"
-                );
 
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = "Sending...";
             }
 
-        }
-    );
+
+            const formData =
+                new FormData(form);
 
 
-    backToTop.addEventListener(
-        "click",
-        () => {
+            try {
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   12. ESC KEY
-   CLOSE ACTIVE CARDS
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (event.key === "Escape") {
-
-            skillCards.forEach((card) => {
-                card.classList.remove("active");
-                card.style.transform = "";
-            });
+                const response =
+                    await fetch(
+                        "https://formsubmit.co/ajax/raniaelazzab31@gmail.com",
+                        {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
 
 
-            projectCards.forEach((card) => {
-                card.classList.remove(
-                    "project-active"
+                if (!response.ok) {
+                    throw new Error(
+                        "FormSubmit request failed."
+                    );
+                }
+
+
+                const result =
+                    await response.json();
+
+
+                if (
+                    result.success === true ||
+                    result.success === "true"
+                ) {
+
+                    /*
+                     * Show your existing success message.
+                     */
+
+                    const successMessage =
+                        Array.from(
+                            document.querySelectorAll("*")
+                        ).find(function (element) {
+
+                            return (
+                                element.children.length === 0 &&
+                                element.textContent
+                                    .trim()
+                                    .includes(
+                                        "Thank you! Your message has been sent successfully"
+                                    )
+                            );
+
+                        });
+
+
+                    if (successMessage) {
+                        successMessage.style.display =
+                            "block";
+                    }
+
+                    /*
+                     * Clear the form.
+                     */
+
+                    form.reset();
+
+                } else {
+
+                    alert(
+                        "Your message could not be sent. Please try again."
+                    );
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Contact form error:",
+                    error
                 );
 
-                card.style.transform = "";
-            });
+                alert(
+                    "There was a problem sending your message. Please try again."
+                );
 
-        }
+            } finally {
 
-    }
-);
+                if (submitButton) {
 
+                    submitButton.disabled =
+                        false;
 
-/* =========================================================
-   13. CONSOLE MESSAGE
-========================================================= */
+                    submitButton.textContent =
+                        originalText ||
+                        "Send Message";
+                }
+            }
 
-console.log(
-    "Rania El Azzab Portfolio — JavaScript loaded successfully."
-);
-
-/* =========================================================
-   14 — HERO IMAGE 3D MOUSE INTERACTION
-========================================================= */
-
-const heroVisual = document.querySelector(".hero-visual");
-const heroImage = document.querySelector(".hero-image");
-
-if (heroVisual && heroImage) {
-
-    heroVisual.addEventListener("mousemove", (event) => {
-
-        const rect = heroVisual.getBoundingClientRect();
-
-        const x =
-            event.clientX - rect.left;
-
-        const y =
-            event.clientY - rect.top;
-
-        const centerX =
-            rect.width / 2;
-
-        const centerY =
-            rect.height / 2;
-
-        const rotateX =
-            ((y - centerY) / centerY) * -4;
-
-        const rotateY =
-            ((x - centerX) / centerX) * 5;
-
-        heroImage.style.transform =
-            `rotate(3deg)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             scale(1.025)`;
+        });
 
     });
 
-
-    heroVisual.addEventListener("mouseleave", () => {
-
-        heroImage.style.transform =
-            "rotate(3deg) rotateX(0deg) rotateY(0deg) scale(1)";
-
-    });
-
-}
-
+})();
